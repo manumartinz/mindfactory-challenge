@@ -1,0 +1,61 @@
+<div class="news-list-container">
+  <div class="header">
+    <h1>Noticias</h1>
+    <p-button icon="pi pi-plus" severity="contrast" routerLink="/news/new" [label]="'Nueva Noticia'" />
+  </div>
+
+  <div class="filters">
+    <select [(ngModel)]="categoriaSeleccionada" class="filter-select">
+      <option value="">Todas las categorías</option>
+      <option value="Tecnología">Tecnología</option>
+      <option value="Educación">Educación</option>
+      <option value="Tendencias">Tendencias</option>
+      <option value="Deportes">Deportes</option>
+      <option value="Salud">Salud</option>
+      <option value="Entretenimiento">Entretenimiento</option>
+      <option value="Política">Política</option>
+      <option value="Economía">Economía</option>
+    </select>
+  </div>
+
+  <div class="loading" *ngIf="cargando">
+    <div class="spinner"></div>
+    <p>Cargando noticias...</p>
+  </div>
+
+  <div class="error" *ngIf="error">
+    <h3>Error</h3>
+    <p>{{ error }}</p>
+    <p-button (click)="cargarNoticias()" label="Reintentar" />
+  </div>
+
+  <div class="news-grid" *ngIf="!cargando && !error">
+    <div class="news-card" *ngFor="let noticia of obtenerNoticiasFiltradas(); trackBy: trackByFn">
+      <div class="news-image" *ngIf="noticia.imageUrl">
+        <img [src]="noticia.imageUrl" [alt]="noticia.title" />
+      </div>
+      <div class="news-content">
+        <div class="news-category">{{ noticia.category }}</div>
+        <h3 class="news-title">{{ noticia.title }}</h3>
+        <p class="news-excerpt">{{ obtenerResumen(noticia.content) }}</p>
+        <div class="news-meta">
+          <span class="author">Por: {{ noticia.author }}</span>
+        </div>
+        <div class="news-actions">
+          <p-button icon="pi pi-eye" severity="contrast" [routerLink]="['/news', noticia.id]" [label]="'Ver'" />
+          <p-button icon="pi pi-pencil" severity="contrast" [routerLink]="['/news', noticia.id, 'edit']"
+            [label]="'Editar'" />
+          <p-button icon="pi pi-trash" severity="contrast" (click)="eliminarNoticia(noticia.id!)"
+            [disabled]="idEliminando === noticia.id"
+            [label]="idEliminando === noticia.id ? 'Eliminando...' : 'Eliminar'" />
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="empty-state" *ngIf="!cargando && !error && obtenerNoticiasFiltradas().length === 0">
+    <h3>No hay noticias</h3>
+    <p>{{ categoriaSeleccionada ? 'No hay noticias en esta categoría.' : 'Aún no hay noticias creadas.' }}</p>
+    <p-button label="Crear primera noticia" routerLink="/news/new" severity="contrast" icon="pi pi-plus" />
+  </div>
+</div>

@@ -1,0 +1,52 @@
+{
+  "news": [
+    {
+      "id": "1",
+      "title": "Angular 19 ha sido lanzado oficialmente",
+      "content": "La nueva versión de Angular trae mejoras significativas en performance y nuevas características para desarrolladores.",
+      "author": "Equipo Angular",
+      "category": "Tecnología",
+      "imageUrl": "https://images.unsplash.com/photo-1555949963-aa79dcee981c?w=300"
+    },
+    {
+      "id": "3",
+      "title": "Nuevas tendencias en desarrollo web 2025",
+      "content": "Descubre las tecnologías y frameworks que dominarán el desarrollo web en el próximo año.",
+      "author": "Carlos Ruiz",
+      "category": "Tendencias",
+      "imageUrl": "https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=300"
+    },
+    {
+      "id": "4",
+      "title": "Nuevas tendencias en desarrollo web 2025",
+      "content": "Descubre las tecnologías y frameworks que dominarán el desarrollo web en el próximo año.",
+      "author": "Carlos Ruiz",
+      "category": "Tendencias",
+      "imageUrl": "https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=300"
+    },
+    {
+      "id": "5",
+      "title": "Nuevas tendencias en desarrollo web 2025",
+      "content": "Descubre las tecnologías y frameworks que dominarán el desarrollo web en el próximo año.",
+      "author": "Carlos Ruiz",
+      "category": "Tendencias",
+      "imageUrl": "https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=300"
+    },
+    {
+      "id": "c1e4",
+      "title": "asdasdsads",
+      "content": "https://picsum.photos/200",
+      "author": "asdasdasddsa",
+      "category": "Deportes",
+      "imageUrl": "https://picsum.photos/200"
+    },
+    {
+      "id": "c920",
+      "title": "asdsadasdds",
+      "content": "asdadsadssdasdsadassa",
+      "author": "asdadads",
+      "category": "Salud",
+      "imageUrl": "https://picsum.photos/200"
+    }
+  ]
+}

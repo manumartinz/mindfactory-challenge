@@ -1,0 +1,42 @@
+<div class="news-detail-container">
+  <div class="back-button">
+    <p-button icon="pi pi-arrow-left" severity="contrast" (click)="volver()" label="Volver a la lista" />
+  </div>
+
+  <div class="loading" *ngIf="cargando">
+    Cargando noticia...
+  </div>
+
+  <div class="error" *ngIf="error">
+    <h3>Error</h3>
+    <p>{{ error }}</p>
+    <p-button (click)="cargarNoticia()" label="Reintentar" />
+  </div>
+
+  <article class="news-article" *ngIf="noticia && !cargando && !error">
+    <header class="news-header">
+      <div class="news-category">{{ noticia.category }}</div>
+      <h1 class="news-title">{{ noticia.title }}</h1>
+      
+      <div class="news-meta">
+        <div class="author-info">
+          <span class="author">Por: {{ noticia.author }}</span>
+        </div>
+      </div>
+    </header>
+
+    <div class="news-image" *ngIf="noticia.imageUrl">
+      <img [src]="noticia.imageUrl" [alt]="noticia.title" />
+    </div>
+
+    <div class="news-content">
+      <p>{{ noticia.content }}</p>
+    </div>
+
+    <footer class="news-actions">
+      <p-button icon="pi pi-pencil" severity="contrast" [routerLink]="['/news', noticia.id, 'edit']" label="Editar noticia" />
+      <p-button icon="pi pi-trash" severity="contrast" (click)="eliminarNoticia()" [disabled]="eliminando"
+        [label]="eliminando ? 'Eliminando...' : 'Eliminar noticia'" />
+    </footer>
+  </article>
+</div>

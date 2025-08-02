@@ -1,0 +1,108 @@
+<div class="news-form-container">
+  <div class="back-button">
+    <p-button severity="contrast" (click)="volver()" label="Volver a la lista" icon="pi pi-arrow-left" />
+  </div>
+
+  <div class="form-header">
+    <h2>{{ esModoEdicion ? 'Editar Noticia' : 'Nueva Noticia' }}</h2>
+  </div>
+
+  <div class="loading" *ngIf="cargando">
+    <p-progressSpinner />
+  </div>
+
+  @if (error) {
+  <div class="error">
+    <div class="error-message">{{ error }}</div>
+    <p-button (click)="limpiarError()" label="Continuar" />
+  </div>
+  }
+
+  <form [formGroup]="formularioNoticias" (ngSubmit)="alEnviar()" class="news-form" *ngIf="!cargando">
+    <div class="form-group">
+      <label for="title">Título *</label>
+      <input pInputText type="text" id="title" formControlName="title" class="form-control"
+        placeholder="Ingresa el título de la noticia">
+      <div class="error-text" *ngIf="esCampoInvalido('title')">
+        @if (formularioNoticias.get('title')?.errors?.['required']) {
+        <span>El título es requerido</span>
+        }
+        @if (formularioNoticias.get('title')?.errors?.['minlength']) {
+        <span>El título debe tener al menos 5 caracteres</span>
+        }
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="content">Contenido *</label>
+      <textarea pTextarea id="content" formControlName="content" class="form-control" rows="8"
+        placeholder="Escribe el contenido completo de la noticia..."></textarea>
+      <div class="error-text" *ngIf="esCampoInvalido('content')">
+        @if (formularioNoticias.get('content')?.errors?.['required']) {
+        <span>El contenido es requerido</span>
+        }
+        @if (formularioNoticias.get('content')?.errors?.['minlength']) {
+        <span>El contenido debe tener al menos 20 caracteres</span>
+        }
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group">
+        <label for="author">Autor *</label>
+        <input pInputText type="text" id="author" formControlName="author" class="form-control"
+          placeholder="Nombre del autor">
+        <div class="error-text" *ngIf="esCampoInvalido('author')">
+          @if (formularioNoticias.get('author')?.errors?.['required']) {
+          <span>El autor es requerido</span>
+          }
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="category">Categoría *</label>
+        <select id="category" formControlName="category" class="form-control"
+          [class.error]="esCampoInvalido('category')">
+          <option value="">Selecciona una categoría</option>
+          <option value="Tecnología">Tecnología</option>
+          <option value="Educación">Educación</option>
+          <option value="Tendencias">Tendencias</option>
+          <option value="Deportes">Deportes</option>
+          <option value="Salud">Salud</option>
+          <option value="Entretenimiento">Entretenimiento</option>
+          <option value="Política">Política</option>
+          <option value="Economía">Economía</option>
+        </select>
+        <div class="error-text" *ngIf="esCampoInvalido('category')">
+          @if (formularioNoticias.get('category')?.errors?.['required']) {
+          <span>La categoría es requerida</span>
+          }
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="imageUrl">URL de Imagen *</label>
+      <input pInputText type="text" id="imageUrl" formControlName="imageUrl" class="form-control"
+        placeholder="https://ejemplo.com/imagen.jpg">
+      @if (esCampoInvalido('imageUrl')) {
+      <div class="error-text">
+        @if (formularioNoticias.get('imageUrl')?.errors?.['required']) {
+        <span>La URL de imagen es requerida</span>
+        }
+      </div>
+      }
+      <div class="help-text">
+        Puedes usar URLs de servicios como Unsplash, Pixabay o subir tu imagen a un hosting gratuito.
+      </div>
+    </div>
+
+    <div class="form-actions">
+      <p-button severity="contrast" type="submit" [disabled]="formularioNoticias.invalid || enviando"
+        [label]="enviando ? (esModoEdicion ? 'Guardando...' : 'Creando...') : (esModoEdicion ? 'Guardar Cambios' : 'Crear Noticia')" />
+      <p-button severity="contrast" type="button" (click)="reiniciarFormulario()" [disabled]="enviando"
+        label="Limpiar" />
+      <p-button severity="contrast" routerLink="/news" [label]="'Cancelar'" />
+    </div>
+  </form>
+</div>
